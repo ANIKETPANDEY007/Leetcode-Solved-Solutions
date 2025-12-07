@@ -1,0 +1,46 @@
+// Method 1:- By reversing the array
+
+class Solution {
+    public void reverse(int[] brr,int k,int l){
+        // To reverse the array with the given starting and ending position.
+    int start = k;
+    int end = l;
+        while (start < end) {
+            int temp = brr[start];
+            brr[start] = brr[end];
+            brr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    public void rotate(int[] nums, int k) {
+        // Without Using Additional Memory
+        int n = nums.length ;
+        k = k % n; // if k>n
+        //Step-1 Reverse the array of the first n-k parts.
+        reverse(nums,0,n-k-1) ;
+        reverse(nums,n-k,n-1) ;
+        reverse(nums,0,n-1) ;
+    }
+}
+
+Method-2 // Using an extra array
+class Solution {
+    public void rotate(int[] nums, int k) {
+        // Using Additional Memory
+        int n = nums.length ;
+        k = k % n; // if k>n
+        
+        int[] arr = new int[n] ;
+        for(int i = n-k ;i<n;i++){
+            arr[i-(n-k)] = nums[i] ;
+        } 
+        for(int i=0;i<(n-k);i++){
+            arr[i+k] = nums[i] ;
+        }
+        for(int i = 0 ;i<n;i++){
+            nums[i] = arr[i] ;
+        }
+    }
+}
+
