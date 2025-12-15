@@ -1,3 +1,5 @@
+// PUSH EFFICIENT 
+
 class MyStack {
     Queue<Integer> q = new LinkedList<>() ;
 
@@ -40,3 +42,38 @@ class MyStack {
  * int param_3 = obj.top();
  * boolean param_4 = obj.empty();
  */
+
+// POP EFFICIENT
+
+class MyStack {
+    Queue<Integer> q = new LinkedList<>() ;
+
+    public MyStack() {
+        
+    }
+    
+    public void push(int x) {
+       if(q.size()==0) q.add(x);
+       else{
+            q.add(x);
+            for(int i=1;i<=q.size()-1;i++){
+                q.add(q.remove()) ;
+            }
+       }
+        
+    }
+    
+    public int pop() {
+        int val = q.remove() ;
+        return val ; 
+    }
+    
+    public int top() { // Peek
+       return q.peek() ; 
+    }
+    
+    public boolean empty() {
+        if(q.size()==0) return true ;
+        else return false ;
+    }
+}
