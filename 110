@@ -1,0 +1,36 @@
+// M-1 -> Time complexity of O(N^2).
+class Solution {
+    public int levels(TreeNode root){
+        if(root==null) return 0 ;
+        return 1+Math.max(levels(root.left),levels(root.right)) ;
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true ;
+        int diff = Math.abs(levels(root.left)-levels(root.right)) ;
+        if(diff>1) return false ;
+        boolean RST = isBalanced(root.right) ;
+        if(RST == false) return false ;
+        boolean LST = isBalanced(root.left) ;
+        if(LST == false) return false ;
+        return true ;
+    }
+}
+
+// M-2(More optimised version)
+// Time complexity O(N)
+class Solution {
+    static boolean ans ;
+    public int levels(TreeNode root){
+        if(root==null) return 0 ;
+        int LeftLevels = levels(root.left) ;
+        int RightLevels = levels(root.right) ;
+        int diff = Math.abs(LeftLevels-RightLevels) ;
+        if(diff>1) ans = false ;
+        return 1+Math.max(LeftLevels,RightLevels) ;
+    }
+    public boolean isBalanced(TreeNode root) {
+        ans = true ;
+        levels(root) ;
+        return ans ;
+    }
+}
