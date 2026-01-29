@@ -1,0 +1,36 @@
+// M-1
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        ListNode temp = head ;
+        ListNode odd = new ListNode(10) ;
+        ListNode even = new ListNode(10) ;
+        int curr = 0 ;
+        while(temp!=null){
+            curr++ ;
+            if(curr%2 != 0 ){
+                ListNode newTemp = new ListNode(temp.val) ;
+                ListNode temp2 = odd ;
+                while(temp2.next!=null){
+                    temp2 = temp2.next ;
+                }
+                temp2.next = newTemp ;
+            }
+            if(curr%2 == 0 ){
+                ListNode newTemp = new ListNode(temp.val) ;
+                ListNode temp2 = even ;
+                while(temp2.next!=null){
+                    temp2 = temp2.next ;
+                }
+                temp2.next = newTemp ;
+            }
+            temp = temp.next ;
+        }
+        temp = odd ;
+        ListNode temp2 = odd ;
+                while(temp2.next!=null){
+                    temp2 = temp2.next ;
+                }
+                temp2.next = even.next ;
+        return odd.next ;
+    }
+}
