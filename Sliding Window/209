@@ -1,0 +1,53 @@
+// M-1 Brute Force Approach (TLE error)
+
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n = nums.size() ;
+        int minCount = INT_MAX ;
+        for(int i=0;i<n;i++){
+            int sum = nums[i] ;
+            if(sum>=target) minCount = min(minCount,1) ;
+            for(int j=i+1 ;j<n;j++){
+                if(sum + nums[j]>=target){
+                    minCount = min(minCount , j-i+1) ;
+                    break ;
+                }else{
+                    sum += nums[j] ;
+                }
+            }
+        }
+        if(minCount==INT_MAX) return 0 ;
+        return minCount ;
+    }
+};
+
+// M-2 
+
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n = nums.size() ;
+        int minSize = INT_MAX , i = 0 , j = 0 , sum = 0 ;
+
+        while(j<n && sum < target){
+            sum += nums[j++] ;
+        }
+        j-- ; 
+
+        while(i<n && j<n){
+            int len = j - i + 1 ;
+            if(sum >= target) minSize = min(len,minSize) ;
+            sum -= nums[i] ; // Moving to the next window . 
+            i++ ; j++ ;
+            // If the sum is already completed the target there is no need of increasing the window . As a smaller window can contribute to acheive the target . 
+            // But if the target is not acheived and j<n then we will increase the size of the window as the smaller window can't contribute to acheive the target sum . 
+            while(j<n && sum<target){
+                sum += nums[j++] ;
+            }
+            j-- ;
+        }
+        if(minSize==INT_MAX) return 0 ;
+        return minSize ;
+    }
+};
