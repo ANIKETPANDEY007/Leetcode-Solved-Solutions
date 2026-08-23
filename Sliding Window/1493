@@ -1,0 +1,29 @@
+// M-1 --> Brute Force Approach . 
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int n = nums.size() ;
+        int maxCount = 0 ;
+        bool useC = false ;
+
+        for(int i=0;i<n;i++){
+            bool chance = true ;
+            int count = 0 ;
+            for(int j=i;j<n;j++){
+                if(nums[j]==1){
+                    count++ ;
+                    maxCount = max(count , maxCount) ;
+                }
+                else if(chance){
+                    chance = false ;
+                    useC = true ;
+                }else break ;
+            }
+        }
+        if(!useC) return maxCount-1 ; 
+        return maxCount ;
+    }
+};
+
+// M-2 --> Sliding Window Approach .
+
