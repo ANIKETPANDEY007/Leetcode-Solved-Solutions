@@ -29,35 +29,21 @@ public:
 
 class Solution {
 public:
-    int longestSubarray(vector<int>& nums) {
+    int longestOnes(vector<int>& nums, int k) {
         int n = nums.size() ;
-        int maxCount = 0 , zeroes = 0;
-        int i=0 , j=0 ;
-        for(int k=0 ; k<n ;k++){
-            if(nums[k]==0) zeroes++ ;
-        }
-        if(zeroes==0) return n-1 ;
-        while(i<n && nums[i]==0) i++ ;
-        if(i==n) return 0 ;
-        j = i ; zeroes = 0 ;
+        int i = 0 , j = 0 , maxCount = 0 , nZ = 0; 
+
         while(j<n){
-            if(nums[j]==1) j++ ;
-            else{
-                if(zeroes==0){
-                    j++ ;
-                    zeroes++ ;
-                }else{
-                    int len = j-i-1 ;
-                    maxCount = max(len,maxCount) ;
-                    j++ ;
-                    while(i<n && nums[i]==1) i++ ;
-                    i++ ;
-                }
+            if(nums[j]==0 ) nZ++ ;
+            
+            while(nZ>k){
+                if(nums[i]==0) nZ-- ;
+                i++ ;
             }
+            int len  = j-i+1 ;
+            maxCount = max(len,maxCount) ;
+            j++ ;
         }
-        if(zeroes==0) return j-i ;
-        int len = j - i - 1 ;
-        maxCount = max(maxCount,len) ;
         return maxCount ;
     }
 };
