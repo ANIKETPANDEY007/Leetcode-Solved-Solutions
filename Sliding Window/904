@@ -1,0 +1,56 @@
+// Brute Force Approach . 
+class Solution {
+public:
+    int totalFruit(vector<int>& nums) {
+        int n = nums.size() ;
+        int maxCount = 0 ;
+        if(n<=2) return n ;
+
+        for(int i=1;i<n;i++){
+            int c1 = nums[i-1] ;
+            int c2 = nums[i] ;
+            int k = i ;
+            while(k<n && nums[k]==c1){
+                k++ ;
+            }
+            if(k<n) c2 = nums[k] ;
+            int count = 2 ;
+            for(int j=i+1;j<n;j++){
+                if(nums[j]==c1 || nums[j]==c2){
+                    count++ ;
+                    maxCount = max(count , maxCount) ;
+                }else break ;
+            }
+            maxCount = max(count , maxCount) ;
+        }
+        return maxCount ;
+
+    }
+};
+
+// Sliding Window Approach . 
+class Solution {
+public:
+    int totalFruit(vector<int>& nums) {
+        int n = nums.size() ;
+        int maxCount = 0 ;
+        if(n<=2) return n ;
+        map<int,int> freq ;
+
+        int i = 0 ;
+
+        for(int j=0;j<n;j++){
+            freq[nums[j]]++ ;
+
+            while(freq.size()>2){
+                freq[nums[i]]-- ;
+                if(freq[nums[i]]==0) freq.erase(nums[i]) ;
+                i++ ;
+            }
+            maxCount = max(maxCount,j-i+1) ;
+        }
+        
+        return maxCount ;
+
+    }
+};

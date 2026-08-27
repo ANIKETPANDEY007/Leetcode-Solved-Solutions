@@ -1,0 +1,25 @@
+// Sliding Window Approach 
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int n = s.length() ;
+        int l = 0 , r = 0 ;
+        int maxFreq = 0 , maxCount = 0  ;
+        int[] freq = new int[26] ;
+        while(r<n){
+            freq[s.charAt(r)-65]++ ;
+            for(int i=0;i<26;i++){
+                maxFreq = Math.max(freq[i],maxFreq) ;
+            }
+            int win = r - l + 1 ;
+            if(win-maxFreq <= k){
+                maxCount = Math.max(win,maxCount) ;
+            }else{
+                freq[s.charAt(l)-65]-- ;
+                l++ ;
+            }
+            r++ ;
+        }
+
+        return maxCount ;
+    }
+}

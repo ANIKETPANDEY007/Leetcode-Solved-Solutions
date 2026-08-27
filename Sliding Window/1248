@@ -1,0 +1,50 @@
+// Brute Force Approach .
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        int n = nums.size() ;
+        int count = 0 ;
+
+        for(int i=0;i<n;i++){
+            int cOdd = 0 ;
+            if(nums[i]%2==1 ){
+                cOdd++ ;
+            } 
+            if(cOdd==k) count++ ;
+            for(int j=i+1;j<n;j++){
+                if(nums[j]%2==1) cOdd++ ;
+                if(cOdd>k) break ;
+                if(cOdd==k) count++ ;
+            }
+        }
+        return count ;
+    }
+};
+
+// Prefix Sum Approach .
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        int n = nums.size() ;
+        int count = 0 , oddC = 0 ;
+
+        // Freq will store the freq of odd
+        map<int,int> freq ;
+        freq[0] = 1 ;
+
+        
+
+        for(int i=0;i<n;i++){
+            if(nums[i]%2==1) oddC++ ;
+
+            // odd count in subarray = current odd count - previous odd count
+            // previous odd count = current - k 
+            if(freq.contains(oddC-k)) count += freq[oddC-k] ;
+            freq[oddC]++ ;
+        }
+        return count ;
+    }
+};
+
+// Sliding Window Approach 
+
