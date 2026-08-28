@@ -1,0 +1,29 @@
+// Sliding Window Approach . 
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length() ;
+        int maxLen = 0 ;
+        if(n<=1) return n ; 
+        HashMap<Character,Integer> map = new HashMap<>() ; 
+        // Character with their respective position . 
+        int i = 0 , j = 0 ;
+        while(j<n){
+            char ch = s.charAt(j) ;
+
+            if(map.containsKey(ch) && map.get(ch)>=i){
+                int len = j - i ;
+                maxLen = Math.max(len,maxLen) ;
+
+                while(s.charAt(i)!=ch) i++ ;
+                i++ ;
+            }else{
+                map.put(ch,j) ;
+                j++ ;
+            }
+        }
+        int len = j-i ;
+        maxLen = Math.max(len,maxLen) ;
+        return maxLen ;
+
+    }
+}
