@@ -1,0 +1,54 @@
+// Sliding Window Approach (TLE error) 
+T.C -> O(N^2) . As we are taking back the i .
+
+class Solution {
+public:
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        int n = nums.size() , count = 0 ;
+        map<int,int>freq ;
+        int i=0 , j=0 ;
+        while(j<n){
+            freq[nums[j]]++ ;
+            while(freq.size()>=k && i<=j){
+                if(freq.size()==k)count++ ;
+                freq[nums[i]]-- ;
+                if(freq[nums[i]]==0) freq.erase(nums[i]) ;
+                i++ ;
+            }
+            while(freq.size()<=k && i>0){
+                freq[nums[--i]]++ ;
+            }
+            j++ ;
+        }
+        return count ;
+    }
+};
+
+M-2 -> Sliding Window (Better Approach) .
+// As we have used the unordered map -> TC = O(N) 
+// If we have used map then the time complexity will be O(NlogN) .
+
+class Solution {
+
+public :
+    int atmost(vector<int>& nums, int k){
+        int n = nums.size() , count = 0 ;
+        unordered_map<int,int>freq ;
+        int i=0 , j=0 ;
+        while(j<n){
+            freq[nums[j]]++ ;
+            while(freq.size() > k ){
+                freq[nums[i]]-- ;
+                if(freq[nums[i]]==0) freq.erase(nums[i]) ;
+                i++ ;
+            }
+            count += (j-i+1) ;
+            j++ ;
+        }
+        return count ;
+    } ;
+public:
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return atmost(nums,k) - atmost(nums,k-1) ;
+    }
+};
