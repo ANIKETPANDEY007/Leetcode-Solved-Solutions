@@ -1,0 +1,25 @@
+// Brute Force Approach (TLE Error)
+
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int n = s.size() ;
+        int i = 0 , j = 0 , count = 0 ;
+        
+        for(int i=0;i<n;i++){
+            int aC = 0 , bC = 0 , cC = 0 ;
+            for(int j=i;j<n;j++){
+                if(s[j]=='a') aC++ ;
+                else if(s[j]=='b') bC++ ;
+                else cC++ ;
+                if(aC>=1 && bC>=1 && cC >=1){
+                    count++ ;
+                }
+            }
+        } 
+        return count ;
+    }
+};
+
+// Sliding Window Approach . 
+
