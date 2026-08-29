@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int m = s.size() , n = t.size() ;
+        if(n>m) return "" ;
+        string ans = "" ;
+        int minLen = INT_MAX ;
+        int start = 0 ;
+
+        map<char,int>freqt , freqs ;
+        for(int i=0;i<n;i++){
+            freqt[t[i]]++ ;
+        }
+        int have = 0 , i=0 , j=0;
+        int required = t.size() ;
+
+        while(j<m){
+            char c = s[j] ;
+            freqs[c]++ ;
+
+            if(freqs[c] <= freqt[c]){
+                have++ ;
+            }
+
+            while(have==required){
+                int len = j-i+1 ;
+                if(len<minLen){
+                    minLen = len ;
+                    start = i ;
+                }
+                char leftChar = s[i] ;
+                freqs[leftChar]-- ;
+                if(freqt.contains(leftChar) && freqs[leftChar]<freqt[leftChar]){
+                    have-- ;
+                }
+                i++ ;
+            }
+            j++ ;
+        }
+        if(minLen==INT_MAX) return "" ;
+        for(int k = start ; k<start+minLen ;k++){
+            ans += s[k] ;
+        }
+        return ans ;
+    }
+};
