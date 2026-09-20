@@ -21,4 +21,21 @@ class Solution {
     }
 }
 
+// Using Binary Search .
 
+class Solution {
+    // For every index i, the number of missing positive integers before arr[i] is arr[i] - (i + 1). This is because if there were no missing numbers, the value at index i would be i + 1. Since the number of missing elements is monotonically increasing as we move through the array, I can binary search for the first index where the number of missing elements becomes at least k. If the missing count at mid is less than k, I move right; otherwise, I move left. After the search, low represents how many array elements occur before the position containing the kth missing number. Therefore, the answer is low + k.
+
+    public int findKthPositive(int[] arr, int k) {
+        int n = arr.length ;
+        int low = 0 , high = n-1 ;
+        // Number of missing element at index i = arr[mid]-mid-1 .
+        while(low <= high){
+            int mid = low + (high - low)/2 ;
+            if(arr[mid]-mid-1 < k) low = mid + 1 ;
+            else high = mid - 1;
+        }
+        // Here , low = first index where missing >= k
+        return low + k ;
+    }
+}
