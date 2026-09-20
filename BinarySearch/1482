@@ -1,0 +1,36 @@
+class Solution {
+    public int maxBloom(int[] bloomDay , int mid , int k){
+        int n = bloomDay.length ;
+        int count = 0 , consecutive = 0;
+        for(int i=0 ;i<n;i++){
+            if(mid>=bloomDay[i]){
+                consecutive++ ;
+
+                if(consecutive==k){
+                    count++ ;
+                    consecutive = 0 ;
+                } 
+            }else{
+                consecutive = 0 ;
+            }
+        }
+        
+        return count ;
+    }
+    public int minDays(int[] bloomDay, int m, int k) {
+        int n = bloomDay.length , low = 1 , high = 1 ;
+        if((long)m*k > n) return -1 ;
+        for(int i=0 ;i<n;i++){
+            low = Math.min(bloomDay[i],low) ;
+            high = Math.max(bloomDay[i],high) ;
+        }
+
+        while(low < high){
+            int mid = low + (high - low)/2 ;
+            int bloom = maxBloom(bloomDay,mid,k) ;
+            if(bloom<m) low = mid + 1 ;
+            else high = mid ;
+        }
+            return high ;
+    }
+}
