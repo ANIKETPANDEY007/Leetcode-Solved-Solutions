@@ -1,0 +1,25 @@
+// Binary Search Approach . 
+class Solution {
+    int speed(int[] nums ,int k){
+        int ans = 0 ;
+        for(int i=0;i<nums.length ;i++){
+            ans += ((nums[i]+k-1)/k) ;
+        }
+        return ans ;
+    }
+    public int minEatingSpeed(int[] nums, int h) {
+        int n = nums.length ;
+        int low = 1 , high = nums[0] ;
+        for(int i=1;i<n;i++){
+            high = Math.max(high , nums[i]) ;
+        }
+
+        while(low < high){
+            int mid = low + (high - low)/2 ;
+            int time = speed(nums,mid) ;
+            if(time<=h) high = mid ;
+            else low = mid + 1 ;
+        }
+        return low ;
+    }
+}
