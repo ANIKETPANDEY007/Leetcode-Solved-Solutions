@@ -1,0 +1,24 @@
+// Time Complexity -> O(N) 
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        int n = arr.length ;
+        int missing = 1 ;
+        int maxm = 0 ;
+        for(int i=0;i<n;i++){
+            maxm = Math.max(maxm,arr[i]) ;
+        }
+        boolean numbers[] = new boolean[maxm+k+1] ;
+        numbers[0] = true  ;
+        for(int i=0;i<n;i++){
+            numbers[arr[i]] = true ;
+        }
+        int count = 0 ;
+        for(int i=0 ;i < numbers.length ; i++){
+            if(!numbers[i]) count++ ;
+            if(count==k) return i ;
+        }
+        return -1 ;
+    }
+}
+
+
